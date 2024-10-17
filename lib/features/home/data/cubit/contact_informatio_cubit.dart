@@ -9,13 +9,35 @@ class ContactInformatioCubit extends Cubit<ContactInformatioState> {
   TextEditingController title = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController email = TextEditingController();
-
+  List<ContactInfoModel> contactInfos=[];
+  var contactInfo = Hive.box<ContactInfoModel>('contact_info');
   void fetchContactInfo() {
-    var contactInfo = Hive.box<ContactInfoModel>('contact_info');
+    contactInfos = contactInfo.values.toList();
     emit(
       ContactInformatioLoading(
-        contactInfo: contactInfo.values.toList(),
+        
       ),
     );
+  }
+
+  void addContactInfo() {
+    contactInfo.add(
+      ContactInfoModel(
+          title: title.text, phoneNumber: phoneNumber.text, email: email.text),
+    );
+    title.clear();
+    phoneNumber.clear();
+    email.clear();
+    emit(ContactInformatioSuccess());
+  }
+
+  void updateContactInfo(int index, ContactInfoModel updatedInfo) {
+    contactInfo.put(index, updatedInfo);
+    emit(ContactInformatioSuccess());
+  }
+
+  void deleteContactInfo(int index) {
+    contactInfo.delete(index);
+    emit(ContactInformatioSuccess());
   }
 }

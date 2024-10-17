@@ -5,7 +5,7 @@ class ContactInfoModel extends HiveObject {
   @HiveField(0)
   final String title;
   @HiveField(1)
-  final int phoneNumber;
+  final String phoneNumber;
   @HiveField(3)
   final String email;
 
