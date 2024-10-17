@@ -7,11 +7,15 @@ part 'contact_informatio_state.dart';
 class ContactInformatioCubit extends Cubit<ContactInformatioState> {
   ContactInformatioCubit() : super(ContactInformatioInitial());
   TextEditingController title = TextEditingController();
-   TextEditingController phoneNumber = TextEditingController();
-    TextEditingController email = TextEditingController();
- 
- void fetchContactInfo(){
-  var contactInfo = Hive.box<ContactInfoModel>('')
- }
+  TextEditingController phoneNumber = TextEditingController();
+  TextEditingController email = TextEditingController();
 
+  void fetchContactInfo() {
+    var contactInfo = Hive.box<ContactInfoModel>('contact_info');
+    emit(
+      ContactInformatioLoading(
+        contactInfo: contactInfo.values.toList(),
+      ),
+    );
+  }
 }
