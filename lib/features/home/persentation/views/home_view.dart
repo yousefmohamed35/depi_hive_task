@@ -3,7 +3,7 @@ import 'package:depihivetask/features/home/data/models/contact_info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'edit_and_add.dart';
+import 'add.dart';
 import 'widgets/custom_cart.dart';
 
 class HomeView extends StatelessWidget {
