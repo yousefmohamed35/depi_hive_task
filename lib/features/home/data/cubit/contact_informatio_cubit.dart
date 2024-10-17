@@ -36,6 +36,7 @@ class ContactInformatioCubit extends Cubit<ContactInformatioState> {
     contactInfo.put(index, updatedInfo);
     fetchContactInfo();
     emit(ContactInformatioSuccess());
+    
   }
 
   void deleteContactInfo(int index) {
