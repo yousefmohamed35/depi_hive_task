@@ -1,4 +1,7 @@
+import 'package:depihivetask/features/home/data/cubit/contact_informatio_cubit.dart';
+import 'package:depihivetask/features/home/data/models/contact_info_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditAndAdd extends StatelessWidget {
   const EditAndAdd({
@@ -7,49 +10,53 @@ class EditAndAdd extends StatelessWidget {
   static final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit/Add contact'),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Form(
-          key:formKey,
-          child: Column(
-            children: [
-              CustomTextForm(
-                labelText: 'Name',
-              ),
-              const SizedBox(height: 8),
-              CustomTextForm(
-                labelText: 'Phone number',
-              ),
-              SizedBox(height: 8),
-              CustomTextForm(
-                labelText: 'Email',
-              ),
-              Spacer(),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                  backgroundColor: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  'Save Contact',
-                  style: TextStyle(color: Colors.white),
-                ),
-              )
-            ],
+    return BlocBuilder<ContactInformatioCubit, ContactInformatioState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Edit/Add contact'),
+            centerTitle: true,
+            backgroundColor: Colors.blue,
           ),
-        ),
-      ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  CustomTextForm(
+                    labelText: 'Name',
+                  ),
+                  const SizedBox(height: 8),
+                  CustomTextForm(
+                    labelText: 'Phone number',
+                  ),
+                  SizedBox(height: 8),
+                  CustomTextForm(
+                    labelText: 'Email',
+                  ),
+                  Spacer(),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32, vertical: 12),
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      'Save Contact',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

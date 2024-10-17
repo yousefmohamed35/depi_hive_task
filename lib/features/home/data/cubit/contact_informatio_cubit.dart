@@ -5,18 +5,18 @@ import 'package:hive_flutter/adapters.dart';
 part 'contact_informatio_state.dart';
 
 class ContactInformatioCubit extends Cubit<ContactInformatioState> {
-  ContactInformatioCubit() : super(ContactInformatioInitial());
+  ContactInformatioCubit() : super(ContactInformatioInitial()) {
+    fetchContactInfo();
+  }
   TextEditingController title = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController email = TextEditingController();
-  List<ContactInfoModel> contactInfos=[];
+  List<ContactInfoModel>? contactInfos;
   var contactInfo = Hive.box<ContactInfoModel>('contact_info');
   void fetchContactInfo() {
     contactInfos = contactInfo.values.toList();
     emit(
-      ContactInformatioLoading(
-        
-      ),
+      ContactInformatioLoading(),
     );
   }
 

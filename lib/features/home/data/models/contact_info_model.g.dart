@@ -18,7 +18,7 @@ class ContactInfoModelAdapter extends TypeAdapter<ContactInfoModel> {
     };
     return ContactInfoModel(
       title: fields[0] as String,
-      phoneNumber: fields[1] as int,
+      phoneNumber: fields[1] as String,
       email: fields[3] as String,
     );
   }

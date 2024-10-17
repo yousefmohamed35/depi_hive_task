@@ -1,4 +1,7 @@
+import 'package:depihivetask/features/home/data/cubit/contact_informatio_cubit.dart';
+import 'package:depihivetask/features/home/data/models/contact_info_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'edit_and_add.dart';
 import 'widgets/custom_cart.dart';
@@ -25,13 +28,24 @@ class HomeView extends StatelessWidget {
               onPressed: () {}),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-            itemCount: 10, // Replace with actual data count
-            itemBuilder: (context, index) {
-              return const CustomCart();
-            }),
+      body: BlocBuilder<ContactInformatioCubit, ContactInformatioState>(
+        builder: (context, state) {
+          List<ContactInfoModel> contactInfo =
+              context.read<ContactInformatioCubit>().contactInfos ?? [];
+          if (state is ContactInformatioInitial) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListView.builder(
+                itemCount: contactInfo.length, // Replace with actual data count
+                itemBuilder: (context, index) {
+                  return CustomCart(
+                    contactInfoModel: contactInfo[index],
+                  );
+                }),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

@@ -1,10 +1,12 @@
+import 'package:depihivetask/features/home/data/models/contact_info_model.dart';
 import 'package:flutter/material.dart';
 
 class CustomCart extends StatelessWidget {
   const CustomCart({
     super.key,
+    required this.contactInfoModel,
   });
-
+  final ContactInfoModel contactInfoModel;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -15,22 +17,22 @@ class CustomCart extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      child: const ListTile(
+      child: ListTile(
         title: Text(
-          'Title',
+          contactInfoModel.title,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         leading: CircleAvatar(
           backgroundColor: Colors.blue,
           child: Text(
-            'A',
+            contactInfoModel.title[0],
             style: TextStyle(color: Colors.white),
           ),
         ),
         subtitle: Padding(
           padding: EdgeInsets.only(left: 5),
           child: Text(
-            '01018008166',
+            contactInfoModel.phoneNumber,
             style: TextStyle(color: Colors.grey, fontSize: 14),
           ),
         ),
