@@ -39,7 +39,7 @@ class HomeView extends StatelessWidget {
                 itemCount: contactInfo.length, // Replace with actual data count
                 itemBuilder: (context, index) {
                   return CustomCart(
-                    contactInfoModel: contactInfo[index],
+                    contactInfoModel: contactInfo[index], index: index,
                   );
                 }),
           ),
