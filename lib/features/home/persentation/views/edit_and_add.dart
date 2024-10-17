@@ -1,5 +1,4 @@
 import 'package:depihivetask/features/home/data/cubit/contact_informatio_cubit.dart';
-import 'package:depihivetask/features/home/data/models/contact_info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,14 +25,18 @@ class EditAndAdd extends StatelessWidget {
                 children: [
                   CustomTextForm(
                     labelText: 'Name',
+                    controller: context.read<ContactInformatioCubit>().title,
                   ),
                   const SizedBox(height: 8),
                   CustomTextForm(
+                    controller:
+                        context.read<ContactInformatioCubit>().phoneNumber,
                     labelText: 'Phone number',
                   ),
                   SizedBox(height: 8),
                   CustomTextForm(
                     labelText: 'Email',
+                    controller: context.read<ContactInformatioCubit>().email,
                   ),
                   Spacer(),
                   ElevatedButton(
@@ -45,7 +48,12 @@ class EditAndAdd extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        context.read<ContactInformatioCubit>().addContactInfo();
+                        Navigator.pop(context);
+                      }
+                    },
                     child: const Text(
                       'Save Contact',
                       style: TextStyle(color: Colors.white),
@@ -65,11 +73,14 @@ class CustomTextForm extends StatelessWidget {
   const CustomTextForm({
     super.key,
     required this.labelText,
+    required this.controller,
   });
   final String labelText;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
         enabledBorder: border,

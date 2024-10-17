@@ -28,6 +28,7 @@ class ContactInformatioCubit extends Cubit<ContactInformatioState> {
     title.clear();
     phoneNumber.clear();
     email.clear();
+    fetchContactInfo();
     emit(ContactInformatioSuccess());
   }
 
