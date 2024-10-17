@@ -1,4 +1,5 @@
 import 'package:depihivetask/features/home/data/cubit/contact_informatio_cubit.dart';
+import 'package:depihivetask/features/home/data/function/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,17 +25,27 @@ class EditAndAdd extends StatelessWidget {
               child: Column(
                 children: [
                   CustomTextForm(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your task';
+                      } else {
+                        return null;
+                      }
+                    },
                     labelText: 'Name',
                     controller: context.read<ContactInformatioCubit>().title,
                   ),
                   const SizedBox(height: 8),
                   CustomTextForm(
+                    validator: (phoneNumber) =>
+                        validatePhoneNumber(phoneNumber),
                     controller:
                         context.read<ContactInformatioCubit>().phoneNumber,
                     labelText: 'Phone number',
                   ),
                   SizedBox(height: 8),
                   CustomTextForm(
+                    validator: (email) => validateEmail(email),
                     labelText: 'Email',
                     controller: context.read<ContactInformatioCubit>().email,
                   ),
@@ -74,9 +85,11 @@ class CustomTextForm extends StatelessWidget {
     super.key,
     required this.labelText,
     required this.controller,
+    this.validator,
   });
   final String labelText;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -92,13 +105,7 @@ class CustomTextForm extends StatelessWidget {
         ),
         border: border,
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your task';
-        } else {
-          return null;
-        }
-      },
+      validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
     );
   }
