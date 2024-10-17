@@ -1,7 +1,11 @@
+import 'package:depihivetask/features/home/data/models/contact_info_model.dart';
 import 'package:depihivetask/features/home/persentation/views/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox<ContactInfoModel>('contact_info');
   runApp(const ContactInformation());
 }
 
